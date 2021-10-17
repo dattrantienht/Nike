@@ -9,6 +9,7 @@ using Nike.Application.ProductCategories.Commands.Create;
 using Nike.Application.ProductCategories.Queries.GetAll;
 using Nike.Application.ProductCategories.Queries.GetById;
 using Nike.Application.ProductCategories.Commands.Update;
+using Nike.Application.ProductCategories.Commands.Delete;
 
 namespace Nike.Api.Controllers
 {
@@ -41,10 +42,11 @@ namespace Nike.Api.Controllers
             return Ok(await Mediator.Send(command));
         }
 
-        //[HttpDelete("{id}")]
-        //public async Task<ActionResult<ServiceResult<CityDto>>> Delete(int id)
-        //{
-        //    return Ok(await Mediator.Send(new DeleteCityCommand { Id = id }));
-        //}
+        [Authorize]
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<ServiceResult<ProductCategoryDto>>> Delete(int id)
+        {
+            return Ok(await Mediator.Send(new DeleteProductCategoryCommand { Id = id }));
+        }
     }
 }
