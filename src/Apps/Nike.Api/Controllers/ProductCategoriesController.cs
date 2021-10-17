@@ -1,19 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Nike.Application.Cities.Commands.Create;
-using Nike.Application.Cities.Commands.Delete;
-using Nike.Application.Cities.Commands.Update;
-using Nike.Application.Cities.Queries.GetCities;
-using Nike.Application.Cities.Queries.GetCityById;
 using Nike.Application.Common.Models;
 using Nike.Application.Dto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Nike.Application.ProductCategories.Queries.GetProductCategoriesQuery;
+using Nike.Application.ProductCategories.Queries.GetProductCategoryById;
 
 namespace Nike.Api.Controllers
 {
-    [Authorize]
     public class ProductCategoriesController : BaseApiController
     {
         [HttpGet]
@@ -23,11 +19,11 @@ namespace Nike.Api.Controllers
             return Ok(await Mediator.Send(new GetAllProductCategoriesQuery(), cancellationToken));
         }
 
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<ServiceResult<CityDto>>> GetCityById(int id)
-        //{
-        //    return Ok(await Mediator.Send(new GetCityByIdQuery { CityId = id }));
-        //}
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ServiceResult<ProductCategoryDto>>> GetProductCategoryById(int id)
+        {
+            return Ok(await Mediator.Send(new GetProductCategoryByIdQuery { ProductCategoryId = id }));
+        }
 
         //[HttpPost]
         //public async Task<ActionResult<ServiceResult<CityDto>>> Create(CreateCityCommand command)
