@@ -129,6 +129,43 @@ namespace Nike.Infrastructure.Persistence
 
                 await context.SaveChangesAsync();
             }
+
+            if (!context.ProductCategories.Any())
+            {
+                context.ProductCategories.AddRange(
+                new ProductCategory
+                {
+                    Name = "Jordan",
+                    Products =
+                        {
+                        new Product{Name = "Air Jordan XXXVI SE Luka 'Global Game'"},
+                        new Product{Name = "Jordan Delta 2"},
+                        new Product{Name = "Jordan Jumpman 2021 PF"},
+                        }
+                },
+                new ProductCategory
+                {
+                    Name = "Running",
+                    Products =
+                        {
+                        new Product{Name = "Nike Air Zoom Alphafly NEXT%"},
+                        new Product{Name = "Nike React Infinity Run Flyknit 2"},
+                        new Product{Name = "Nike Revolution 5"},
+                        }
+                },
+                new ProductCategory
+                {
+                    Name = "Basketball",
+                    Products =
+                        {
+                        new Product{Name = "Zoom Freak 3"},
+                        new Product{Name = "PG 5 EP"},
+                        new Product{Name = "KD14 EP"},
+                        }
+                });
+
+                await context.SaveChangesAsync();
+            }
         }
     }
 }
