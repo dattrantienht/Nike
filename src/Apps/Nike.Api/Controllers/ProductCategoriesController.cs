@@ -5,8 +5,9 @@ using Nike.Application.Common.Models;
 using Nike.Application.Dto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Nike.Application.ProductCategories.Queries.GetProductCategoriesQuery;
-using Nike.Application.ProductCategories.Queries.GetProductCategoryById;
+using Nike.Application.ProductCategories.Commands.Create;
+using Nike.Application.ProductCategories.Queries.GetAll;
+using Nike.Application.ProductCategories.Queries.GetById;
 
 namespace Nike.Api.Controllers
 {
@@ -25,11 +26,12 @@ namespace Nike.Api.Controllers
             return Ok(await Mediator.Send(new GetProductCategoryByIdQuery { ProductCategoryId = id }));
         }
 
-        //[HttpPost]
-        //public async Task<ActionResult<ServiceResult<CityDto>>> Create(CreateCityCommand command)
-        //{
-        //    return Ok(await Mediator.Send(command));
-        //}
+        [Authorize]
+        [HttpPost]
+        public async Task<ActionResult<ServiceResult<ProductCategoryDto>>> Create(CreateProductCategoryCommand command)
+        {
+            return Ok(await Mediator.Send(command));
+        }
 
         //[HttpPut]
         //public async Task<ActionResult<ServiceResult<CityDto>>> Update(UpdateCityCommand command)

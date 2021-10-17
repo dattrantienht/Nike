@@ -8,7 +8,7 @@ using Mapster;
 using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
 
-namespace Nike.Application.ProductCategories.Queries.GetProductCategoryById
+namespace Nike.Application.ProductCategories.Queries.GetById
 {
     public class GetProductCategoryByIdQuery : IRequestWrapper<ProductCategoryDto>
     {

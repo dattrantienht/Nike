@@ -9,7 +9,7 @@ using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
 using MediatR;
 
-namespace Nike.Application.ProductCategories.Queries.GetProductCategoriesQuery
+namespace Nike.Application.ProductCategories.Queries.GetAll
 {
     public class GetAllProductCategoriesQuery : IRequestWrapper<List<ProductCategoryDto>>
     {
