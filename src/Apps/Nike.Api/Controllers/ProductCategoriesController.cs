@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Nike.Application.ProductCategories.Commands.Create;
 using Nike.Application.ProductCategories.Queries.GetAll;
 using Nike.Application.ProductCategories.Queries.GetById;
+using Nike.Application.ProductCategories.Commands.Update;
 
 namespace Nike.Api.Controllers
 {
@@ -33,11 +34,12 @@ namespace Nike.Api.Controllers
             return Ok(await Mediator.Send(command));
         }
 
-        //[HttpPut]
-        //public async Task<ActionResult<ServiceResult<CityDto>>> Update(UpdateCityCommand command)
-        //{
-        //    return Ok(await Mediator.Send(command));
-        //}
+        [Authorize]
+        [HttpPut]
+        public async Task<ActionResult<ServiceResult<ProductCategoryDto>>> Update(UpdateProductCategoryCommand command)
+        {
+            return Ok(await Mediator.Send(command));
+        }
 
         //[HttpDelete("{id}")]
         //public async Task<ActionResult<ServiceResult<CityDto>>> Delete(int id)
