@@ -22,7 +22,7 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Production"
       },
       "applicationUrl": "https://localhost:5021;http://localhost:5020"
     },
@@ -31,9 +31,9 @@
       "launchBrowser": true,
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
       "environmentVariables": {
-        "UseInMemoryDatabase": "false",
+        "ASPNETCORE_URLS": "https://+:5011;http://+:5010",
         "ASPNETCORE_HTTPS_PORT": "5011",
-        "ASPNETCORE_URLS": "https://+:5011;http://+:5010"
+        "UseInMemoryDatabase": "false"
       },
       "httpPort": 5010,
       "useSSL": true,
