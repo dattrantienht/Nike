@@ -15,6 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using System.Threading.Tasks;
 
 namespace Nike.Api
 {
@@ -122,6 +123,11 @@ namespace Nike.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.Run(context => {
+                context.Response.Redirect("swagger/index.html"); //auto redirect to swagger ui
+                return Task.CompletedTask;
             });
         }
     }
