@@ -3,7 +3,7 @@ using Nike.Application.ApplicationUser.Queries.GetToken;
 using Nike.Application.Common.Models;
 using Microsoft.AspNetCore.Mvc;
 using Nike.Application.Dto;
-using Nike.Application.ApplicationUser.Queries.GetUser;
+using Nike.Application.ApplicationUser.Commands.CheckUser;
 
 namespace Nike.Api.Controllers
 {
@@ -15,10 +15,10 @@ namespace Nike.Api.Controllers
             return Ok(await Mediator.Send(query));
         }
 
-        [HttpGet("{token}")]
-        public async Task<ActionResult<ServiceResult<ApplicationUserDto>>> GetUserByToken(string token)
+        [HttpPost("check")]
+        public async Task<ActionResult<ServiceResult<ProductDto>>> Create(CheckUserByTokenCommand command)
         {
-            return Ok(await Mediator.Send(new GetUserByTokenQuery { Token = token }));
+            return Ok(await Mediator.Send(command));
         }
     }
 }
