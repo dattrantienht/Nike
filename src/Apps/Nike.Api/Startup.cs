@@ -112,6 +112,7 @@ namespace Nike.Api
 
             app.UseStaticFiles();
 
+            //app.UseSwaggerAuthorized();
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Nike API"));
 
@@ -125,8 +126,10 @@ namespace Nike.Api
                 endpoints.MapControllers();
             });
 
-            app.Run(context => {
-                context.Response.Redirect("swagger/index.html"); //auto redirect to swagger ui
+            //---auto redirect to swagger ui---//
+            app.Run(context =>
+            {
+                context.Response.Redirect("swagger/index.html");
                 return Task.CompletedTask;
             });
         }

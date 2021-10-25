@@ -7,6 +7,13 @@ using Nike.Application.Dto;
 using MapsterMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Security.Claims;
+using Mapster;
 
 namespace Nike.Infrastructure.Identity
 {
@@ -14,11 +21,13 @@ namespace Nike.Infrastructure.Identity
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IMapper _mapper;
+        private readonly IConfiguration _configuration;
 
-        public IdentityService(UserManager<ApplicationUser> userManager, IMapper mapper)
+        public IdentityService(UserManager<ApplicationUser> userManager, IMapper mapper, IConfiguration configuration)
         {
             _userManager = userManager;
             _mapper = mapper;
+            _configuration = configuration;
         }
 
         public async Task<string> GetUserNameAsync(string userId)
@@ -82,6 +91,40 @@ namespace Nike.Infrastructure.Identity
             var result = await _userManager.DeleteAsync(user);
 
             return result.ToApplicationResult();
+        }
+
+        public async Task<ApplicationUserDto> GetUserByToken(string token)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]);
+
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(key),
+                ValidateIssuer = false,
+                ValidateAudience = false
+            };
+
+            SecurityToken securityToken;
+            var principle = tokenHandler.ValidateToken(token, tokenValidationParameters, out securityToken);
+
+            JwtSecurityToken jwtSecurityToken = securityToken as JwtSecurityToken;
+
+            if (jwtSecurityToken != null && jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
+            {
+                var userId = principle.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+
+                var User = await _userManager.Users
+                    .Where(u => u.Id == userId)
+                    .ProjectToType<ApplicationUserDto>(_mapper.Config)
+                    .FirstOrDefaultAsync();
+
+                return User;
+            }
+
+            return null;
         }
     }
 }

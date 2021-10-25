@@ -10,6 +10,8 @@ namespace Nike.Application.Common.Interfaces
 
         Task<ApplicationUserDto> CheckUserPassword(string userName, string password);
 
+        Task<ApplicationUserDto> GetUserByToken(string token);
+
         Task<(Result Result, string UserId)> CreateUserAsync(string userName, string password);
 
         Task<bool> UserIsInRole(string userId, string role);
