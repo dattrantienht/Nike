@@ -83,7 +83,8 @@ namespace Nike.Infrastructure
                         ValidateAudience = true,
                         ValidAudience = configuration["JWT:ValidAudience"],
                         ValidIssuer = configuration["JWT:ValidIssuer"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]))
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"])),
+                        ClockSkew = TimeSpan.Zero
                     };
                 })
                 .AddIdentityServerJwt();

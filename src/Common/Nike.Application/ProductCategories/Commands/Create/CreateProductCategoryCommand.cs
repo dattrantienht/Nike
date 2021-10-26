@@ -4,7 +4,6 @@ using Nike.Application.Common.Interfaces;
 using Nike.Application.Common.Models;
 using Nike.Application.Dto;
 using Nike.Domain.Entities;
-using Nike.Domain.Event;
 using MapsterMapper;
 
 namespace Nike.Application.ProductCategories.Commands.Create

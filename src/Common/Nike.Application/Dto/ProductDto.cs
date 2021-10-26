@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Nike.Domain.Entities;
 using Mapster;
+using System;
 
 namespace Nike.Application.Dto
 {
@@ -15,6 +16,7 @@ namespace Nike.Application.Dto
         public double Price { get; set; }
 
         public string Description { get; set; }
+        public DateTime CreateDate { get; set; }
 
         public int ProductCategoryId { get; set; }
 
