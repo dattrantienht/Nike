@@ -329,6 +329,24 @@ namespace Nike.Infrastructure.Persistence.Migrations
                     b.ToTable("ProductCategories");
                 });
 
+            modelBuilder.Entity("Nike.Domain.Entities.TeamMember", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("TeamMembers");
+                });
+
             modelBuilder.Entity("Nike.Infrastructure.Identity.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")

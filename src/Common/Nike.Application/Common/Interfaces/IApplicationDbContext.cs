@@ -9,6 +9,7 @@ namespace Nike.Application.Common.Interfaces
     {
         DbSet<ProductCategory> ProductCategories { get; set; }
         DbSet<Product> Products { get; set; }
+        DbSet<TeamMember> TeamMembers { get; set; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }

@@ -21,6 +21,7 @@
     <Folder Include="ApplicationUser\Commands\Create\" />
     <Folder Include="ApplicationUser\Commands\Delete\" />
     <Folder Include="ApplicationUser\Commands\Update\" />
+    <Folder Include="TeamMembers\Commands\" />
   </ItemGroup>
 
   <ItemGroup>

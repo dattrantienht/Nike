@@ -10,8 +10,8 @@ using Nike.Infrastructure.Persistence;
 namespace Nike.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211026031648_CreateDb")]
-    partial class CreateDb
+    [Migration("20211026033533_DbGenesis")]
+    partial class DbGenesis
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -329,6 +329,24 @@ namespace Nike.Infrastructure.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ProductCategories");
+                });
+
+            modelBuilder.Entity("Nike.Domain.Entities.TeamMember", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("TeamMembers");
                 });
 
             modelBuilder.Entity("Nike.Infrastructure.Identity.ApplicationUser", b =>
