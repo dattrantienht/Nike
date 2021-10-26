@@ -16,7 +16,7 @@ namespace Nike.Api.Controllers
         }
 
         [HttpPost("check")]
-        public async Task<ActionResult<ServiceResult<ProductDto>>> Create(CheckUserByTokenCommand command)
+        public async Task<ActionResult<ServiceResult<ApplicationUserDto>>> Create(CheckUserByTokenCommand command)
         {
             return Ok(await Mediator.Send(command));
         }

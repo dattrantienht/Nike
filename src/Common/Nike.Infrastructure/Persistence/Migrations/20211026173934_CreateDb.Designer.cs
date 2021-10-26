@@ -10,8 +10,8 @@ using Nike.Infrastructure.Persistence;
 namespace Nike.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211026033533_DbGenesis")]
-    partial class DbGenesis
+    [Migration("20211026173934_CreateDb")]
+    partial class CreateDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -42,9 +42,9 @@ namespace Nike.Infrastructure.Identity
             return user.UserName;
         }
 
-        public async Task<ApplicationUserDto> CheckUserPassword(string email, string password)
+        public async Task<ApplicationUserDto> CheckUserPassword(string userName, string password)
         {
-            ApplicationUser user = await _userManager.Users.FirstOrDefaultAsync(u => u.Email == email);
+            ApplicationUser user = await _userManager.Users.FirstOrDefaultAsync(u => u.UserName == userName);
 
             if (user != null && await _userManager.CheckPasswordAsync(user, password))
             {

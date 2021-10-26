@@ -17,12 +17,27 @@ namespace Nike.Infrastructure.Persistence
                 await roleManager.CreateAsync(administratorRole);
             }
 
-            var defaultUser = new ApplicationUser { UserName = "admin", Email = "admin@nike.com" };
+            var assistantRole = new IdentityRole("Assistant");
 
-            if (userManager.Users.All(u => u.UserName != defaultUser.UserName))
+            if (roleManager.Roles.All(r => r.Name != assistantRole.Name))
             {
-                await userManager.CreateAsync(defaultUser, "TienDat_3k@");
-                await userManager.AddToRolesAsync(defaultUser, new[] { administratorRole.Name });
+                await roleManager.CreateAsync(assistantRole);
+            }
+
+            var adminUser = new ApplicationUser { UserName = "admin", Email = "admin@nike.com" };
+
+            if (userManager.Users.All(u => u.UserName != adminUser.UserName))
+            {
+                await userManager.CreateAsync(adminUser, "DeusTienDat_3k@");
+                await userManager.AddToRolesAsync(adminUser, new[] { administratorRole.Name });
+            }
+
+            var assistantUser = new ApplicationUser { UserName = "assistant", Email = "assistant@nike.com" };
+
+            if (userManager.Users.All(u => u.UserName != assistantUser.UserName))
+            {
+                await userManager.CreateAsync(assistantUser, "NonducorDuco_33#");
+                await userManager.AddToRolesAsync(assistantUser, new[] { assistantRole.Name });
             }
         }
 
