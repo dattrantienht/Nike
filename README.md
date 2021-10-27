@@ -9,7 +9,7 @@
 
 ### Cấu hình Database
 
-Hãy chắc chắn là **DefaultConnection** chuỗi kết nối trong **appsettings.json** trỏ đến một thực thể SQL Server đúng. 
+Hãy chắc chắn là **DefaultConnection** chuỗi kết nối trong **appsettings.json** trỏ đúng đến một thực thể SQL Server. 
 
 Khi bạn chạy ứng dụng lần đầu tiên cơ sở dữ liệu sẽ được tạo ra tự động (nếu cần thiết) và file migrations mới nhất sẽ được áp dụng.
 
