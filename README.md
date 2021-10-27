@@ -17,6 +17,11 @@ Khi bạn chạy ứng dụng lần đầu tiên cơ sở dữ liệu sẽ đư�
 
 Mở cmd ở folder gốc của solution(chứa file Nike.sln) Chạy lần lượt 2 lệnh này:
 
- `dotnet ef migrations add "CreateDb" --project src\Common\Nike.Infrastructure --startup-project src\Apps\Nike.Api --output-dir Persistence\Migrations`
+```
+  dotnet ef migrations add "CreateDb" --project src\Common\Nike.Infrastructure --startup-project src\Apps\Nike.Api --output-dir Persistence\Migrations
+```
 
- `dotnet ef database update --project src\Common\Nike.Infrastructure --startup-project src\Apps\Nike.Api`
+```
+  dotnet ef database update --project src\Common\Nike.Infrastructure --startup-project src\Apps\Nike.Api
+```
+
