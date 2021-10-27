@@ -1,5 +1,5 @@
 # Nike - Backend
-đây là Solution Backend cho bài tập ASP.NET, xây dựng trên nền template [Clean Architecture](https://github.com/iayti/CleanArchitecture) tạo ra bởi [İlker Aytı](https://github.com/iayti) tuân theo nhưng nguyên tắc của Kiến Trúc Sạch (Clean Architecture)
+Đây là Solution Backend cho bài tập ASP.NET, xây dựng trên nền template [Clean Architecture](https://github.com/iayti/CleanArchitecture) tạo ra bởi [İlker Aytı](https://github.com/iayti), áp dụng hình mẫu thiết kế [CQRS](https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs) và tuân theo nhưng nguyên tắc của Kiến Trúc Sạch (Clean Architecture).
 
 ## Công nghệ sử dụng
 * ASP.NET Core 5
