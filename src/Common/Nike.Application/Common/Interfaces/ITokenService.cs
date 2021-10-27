@@ -1,7 +1,9 @@
-﻿namespace Nike.Application.Common.Interfaces
+﻿using System.Threading.Tasks;
+
+namespace Nike.Application.Common.Interfaces
 {
     public interface ITokenService
     {
-        string CreateJwtSecurityToken(string id);
+        Task<string> CreateJwtSecurityToken(string id);
     }
 }

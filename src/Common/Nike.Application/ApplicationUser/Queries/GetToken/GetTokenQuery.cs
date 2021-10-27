@@ -34,7 +34,7 @@ namespace Nike.Application.ApplicationUser.Queries.GetToken
             return ServiceResult.Success(new LoginResponse
             {
                 User = user,
-                Token = _tokenService.CreateJwtSecurityToken(user.Id)
+                Token = await _tokenService.CreateJwtSecurityToken(user.Id)
             });
         }
 
