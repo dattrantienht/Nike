@@ -116,7 +116,7 @@ namespace Nike.Infrastructure.Identity
                 var userId = principle.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
 
-                var User = await _userManager.Users
+                var User = await _userManager.Users.Include(u=>u.Role)
                     .Where(u => u.Id == userId)
                     .ProjectToType<ApplicationUserDto>(_mapper.Config)
                     .FirstOrDefaultAsync();

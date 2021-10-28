@@ -9,5 +9,7 @@ namespace Nike.Infrastructure.Identity
         public string LastName { get; set; }
 
         public string Gsm { get; set; }
+
+        public virtual IdentityRole Role { get; set; }
     }
 }
