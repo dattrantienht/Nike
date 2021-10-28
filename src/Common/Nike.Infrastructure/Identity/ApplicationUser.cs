@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Nike.Infrastructure.Identity
 {
@@ -10,6 +12,6 @@ namespace Nike.Infrastructure.Identity
 
         public string Gsm { get; set; }
 
-        public virtual IdentityRole Role { get; set; }
+        public ICollection<IdentityRole> Roles { get; set; }
     }
 }

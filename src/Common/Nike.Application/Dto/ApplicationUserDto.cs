@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
 
 namespace Nike.Application.Dto
 {
@@ -9,6 +10,6 @@ namespace Nike.Application.Dto
         public string UserName { get; set; }
 
         public string Email { get; set; }
-        public virtual IdentityRole Role { get; set; }
+        public ICollection<IdentityRole> Roles { get; set; }
     }
 }

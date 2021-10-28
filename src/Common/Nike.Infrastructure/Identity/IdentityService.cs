@@ -20,12 +20,14 @@ namespace Nike.Infrastructure.Identity
     public class IdentityService : IIdentityService
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IMapper _mapper;
         private readonly IConfiguration _configuration;
 
-        public IdentityService(UserManager<ApplicationUser> userManager, IMapper mapper, IConfiguration configuration)
+        public IdentityService(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IMapper mapper, IConfiguration configuration)
         {
             _userManager = userManager;
+            _roleManager = roleManager;
             _mapper = mapper;
             _configuration = configuration;
         }
@@ -115,13 +117,21 @@ namespace Nike.Infrastructure.Identity
             {
                 var userId = principle.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
+                var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userId);
+                var userRoles = await _userManager.GetRolesAsync(user);
 
-                var User = await _userManager.Users.Include(u=>u.Role)
+                var UserDto = await _userManager.Users.Include(u => u.Roles)
                     .Where(u => u.Id == userId)
                     .ProjectToType<ApplicationUserDto>(_mapper.Config)
                     .FirstOrDefaultAsync();
 
-                return User;
+                foreach (var userRole in userRoles)
+                {
+                    var role = await _roleManager.FindByNameAsync(userRole);
+                    UserDto.Roles.Add(role);
+                }
+
+                return UserDto;
             }
 
             return null;
