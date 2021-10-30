@@ -1,5 +1,4 @@
-﻿using MapsterMapper;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Nike.Application.Common.Interfaces;
 using Nike.Application.Common.Models;
 using Nike.Application.Dto;
@@ -17,12 +16,10 @@ namespace Nike.Application.Products.Queries.GetList
     public class GetAllListProductQueryHandler : IRequestHandlerWrapper<GetAllListProductQuery, List<ListProductDto>>
     {
         private readonly IApplicationDbContext _context;
-        private readonly IMapper _mapper;
 
-        public GetAllListProductQueryHandler(IApplicationDbContext context, IMapper mapper)
+        public GetAllListProductQueryHandler(IApplicationDbContext context)
         {
             _context = context;
-            _mapper = mapper;
         }
 
         public async Task<ServiceResult<List<ListProductDto>>> Handle(GetAllListProductQuery request, CancellationToken cancellationToken)
