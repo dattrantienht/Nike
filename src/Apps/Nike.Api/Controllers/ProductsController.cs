@@ -11,6 +11,7 @@ using Nike.Application.Products.Queries.GetById;
 using Nike.Application.Products.Commands.Update;
 using Nike.Application.Products.Commands.Delete;
 using Nike.Application.ProductCategories.Commands.Update;
+using Nike.Application.Products.Queries.GetList;
 
 namespace Nike.Api.Controllers
 {
@@ -19,8 +20,13 @@ namespace Nike.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<ServiceResult<List<ProductDto>>>> GetAllProducts(CancellationToken cancellationToken)
         {
-            //Cancellation token example.
             return Ok(await Mediator.Send(new GetAllProductsQuery(), cancellationToken));
+        }
+
+        [HttpGet("list")]
+        public async Task<ActionResult<ServiceResult<List<ProductDto>>>> GetAllListProducts(CancellationToken cancellationToken)
+        {
+            return Ok(await Mediator.Send(new GetAllListProductQuery(), cancellationToken));
         }
 
         [HttpGet("{id}")]
