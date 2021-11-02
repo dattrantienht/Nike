@@ -170,5 +170,11 @@ namespace Nike.Infrastructure.Identity
 
             return userListDto;
         }
+
+        public async Task<List<IdentityRole>> GetAllRoles()
+        {
+            var roleList = await _roleManager.Roles.ToListAsync();
+            return roleList;
+        }
     }
 }

@@ -63,7 +63,6 @@ namespace Nike.Infrastructure
             services.AddTransient<IDateTime, DateTimeService>();
             services.AddTransient<IIdentityService, IdentityService>();
             services.AddTransient<IEmailService, EmailService>();
-            services.AddTransient<IOpenWeatherService, OpenWeatherService>();
             services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
             services.AddTransient<ITokenService, TokenService>();
 

@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using Nike.Application.ApplicationUser.Queries.GetAll;
 using Nike.Application.ApplicationUser.Commands.Delete;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace Nike.Api.Controllers
 {
@@ -39,6 +40,12 @@ namespace Nike.Api.Controllers
         public async Task<ActionResult<ServiceResult<List<ApplicationUserDto>>>> GetAllUsers(CancellationToken cancellationToken)
         {
             return Ok(await Mediator.Send(new GetAllUsersQuery(), cancellationToken));
+        }
+
+        [HttpGet("getroles")]
+        public async Task<ActionResult<ServiceResult<List<IdentityRole>>>> GetAllRoles(CancellationToken cancellationToken)
+        {
+            return Ok(await Mediator.Send(new GetAllRolesQuery(), cancellationToken));
         }
 
         [Authorize(Roles = "Administrator")]

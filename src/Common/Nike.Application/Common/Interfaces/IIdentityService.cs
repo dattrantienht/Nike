@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Nike.Application.Common.Models;
 using Nike.Application.Dto;
 
@@ -22,5 +23,7 @@ namespace Nike.Application.Common.Interfaces
 
         Task<Result> DeleteUserAsync(string userId);
         Task<List<ApplicationUserDto>> GetAllUsers();
+        Task<List<IdentityRole>> GetAllRoles();
+
     }
 }
