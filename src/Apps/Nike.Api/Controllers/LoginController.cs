@@ -9,6 +9,7 @@ using System.Threading;
 using System.Collections.Generic;
 using Nike.Application.ApplicationUser.Queries.GetAll;
 using Nike.Application.ApplicationUser.Commands.Delete;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Nike.Api.Controllers
 {
@@ -26,18 +27,21 @@ namespace Nike.Api.Controllers
             return Ok(await Mediator.Send(command));
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpPost("adduser")]
         public async Task<ActionResult<ServiceResult<LoginResponse>>> CreateUser(CreateUserCommand command)
         {
             return Ok(await Mediator.Send(command));
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpGet]
         public async Task<ActionResult<ServiceResult<List<ApplicationUserDto>>>> GetAllUsers(CancellationToken cancellationToken)
         {
             return Ok(await Mediator.Send(new GetAllUsersQuery(), cancellationToken));
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpDelete("{id}")]
         public async Task<ActionResult<ServiceResult<Result>>> Delete(string id)
         {

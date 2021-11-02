@@ -14,6 +14,10 @@ namespace Nike.Application.ApplicationUser.Commands.Create
         public string username { get; set; }
         public string password { get; set; }
         public string roleId { get; set; }
+        public string email { get; set; }
+        public string name { get; set; }
+        public string lastName { get; set; }
+        public string phoneNumber { get; set; }
     }
 
     public class CreateUserCommandHandler : IRequestHandlerWrapper<CreateUserCommand, ApplicationUserDto>
@@ -26,7 +30,7 @@ namespace Nike.Application.ApplicationUser.Commands.Create
         }
         public async Task<ServiceResult<ApplicationUserDto>> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
-            await _identityService.CreateUserAsync(request.username, request.password);
+            await _identityService.CreateUserAsync(request.username, request.password, request.email, request.name, request.lastName, request.phoneNumber);
             var newUser = await _identityService.CheckUserPassword(request.username, request.password);
             if(newUser != null)
             {

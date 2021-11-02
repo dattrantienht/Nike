@@ -14,7 +14,7 @@ namespace Nike.Application.Common.Interfaces
 
         Task<ApplicationUserDto> GetUserByToken(string token);
 
-        Task<(Result Result, string UserId)> CreateUserAsync(string userName, string password);
+        Task<(Result Result, string UserId)> CreateUserAsync(string userName, string password, string email, string name, string lastName, string phoneNumber);
 
         Task<Result> AddUserToRole(string userId, string roleId);
 

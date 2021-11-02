@@ -57,12 +57,15 @@ namespace Nike.Infrastructure.Identity
             return null;
         }
 
-        public async Task<(Result Result, string UserId)> CreateUserAsync(string userName, string password)
+        public async Task<(Result Result, string UserId)> CreateUserAsync(string userName, string password, string email, string name, string lastName, string phoneNumber)
         {
             var user = new ApplicationUser
             {
                 UserName = userName,
-                Email = userName,
+                Email = email,
+                Name = name,
+                LastName = lastName,
+                PhoneNumber = phoneNumber
             };
 
             var result = await _userManager.CreateAsync(user, password);
