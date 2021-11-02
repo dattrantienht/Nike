@@ -14,6 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Security.Claims;
 using Mapster;
+using System.Collections.Generic;
 
 namespace Nike.Infrastructure.Identity
 {
@@ -143,6 +144,25 @@ namespace Nike.Infrastructure.Identity
             var role = await _roleManager.FindByIdAsync(roleId);
             var result = await _userManager.AddToRolesAsync(user, new[] { role.Name });
             return result.ToApplicationResult();
+        }
+
+        public async  Task<List<ApplicationUserDto>> GetAllUsers()
+        {
+            var userList = _userManager.Users.Include(u => u.Roles);
+
+            foreach (var user in userList)
+            {
+                var userRoles = await _userManager.GetRolesAsync(user);
+                foreach(var userRole in userRoles)
+                {
+                    var role = await _roleManager.FindByNameAsync(userRole);
+                    user.Roles.Add(role);
+                }
+
+            }
+
+            return await userList.ProjectToType<ApplicationUserDto>(_mapper.Config)
+                .ToListAsync(); ;
         }
     }
 }

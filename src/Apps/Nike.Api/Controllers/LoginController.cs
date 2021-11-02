@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using Nike.Application.Dto;
 using Nike.Application.ApplicationUser.Commands.CheckUser;
 using Nike.Application.ApplicationUser.Commands.Create;
+using System.Threading;
+using System.Collections.Generic;
+using Nike.Application.ApplicationUser.Queries.GetAll;
 
 namespace Nike.Api.Controllers
 {
@@ -26,6 +29,12 @@ namespace Nike.Api.Controllers
         public async Task<ActionResult<ServiceResult<LoginResponse>>> CreateUser(CreateUserCommand command)
         {
             return Ok(await Mediator.Send(command));
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<ServiceResult<List<ApplicationUserDto>>>> GetAllUsers(CancellationToken cancellationToken)
+        {
+            return Ok(await Mediator.Send(new GetAllUsersQuery(), cancellationToken));
         }
     }
 }
