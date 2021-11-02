@@ -149,20 +149,23 @@ namespace Nike.Infrastructure.Identity
         public async  Task<List<ApplicationUserDto>> GetAllUsers()
         {
             var userList = _userManager.Users.Include(u => u.Roles);
-
-            foreach (var user in userList)
+            var userListDto = await userList
+                .ProjectToType<ApplicationUserDto>(_mapper.Config)
+                .ToListAsync();
+            
+            foreach (var userDto in userListDto)
             {
+                var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userDto.Id);
                 var userRoles = await _userManager.GetRolesAsync(user);
-                foreach(var userRole in userRoles)
+                foreach (var userRole in userRoles)
                 {
                     var role = await _roleManager.FindByNameAsync(userRole);
-                    user.Roles.Add(role);
+                    userDto.Roles.Add(role);
                 }
 
             }
 
-            return await userList.ProjectToType<ApplicationUserDto>(_mapper.Config)
-                .ToListAsync(); ;
+            return userListDto;
         }
     }
 }
