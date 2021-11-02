@@ -136,5 +136,13 @@ namespace Nike.Infrastructure.Identity
 
             return null;
         }
+
+        public async Task<Result> AddUserToRole(string userId, string roleId)
+        {
+            var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            var role = await _roleManager.FindByIdAsync(roleId);
+            var result = await _userManager.AddToRolesAsync(user, new[] { role.Name });
+            return result.ToApplicationResult();
+        }
     }
 }
