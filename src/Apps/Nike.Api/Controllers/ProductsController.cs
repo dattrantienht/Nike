@@ -12,6 +12,7 @@ using Nike.Application.Products.Commands.Update;
 using Nike.Application.Products.Commands.Delete;
 using Nike.Application.ProductCategories.Commands.Update;
 using Nike.Application.Products.Queries.GetList;
+using Nike.Application.Products.Queries.GetAllPagination;
 
 namespace Nike.Api.Controllers
 {
@@ -21,6 +22,16 @@ namespace Nike.Api.Controllers
         public async Task<ActionResult<ServiceResult<List<ProductDto>>>> GetAllProducts(CancellationToken cancellationToken)
         {
             return Ok(await Mediator.Send(new GetAllProductsQuery(), cancellationToken));
+        }
+
+        [HttpGet("page")]
+        public async Task<ActionResult<ServiceResult<List<ProductDto>>>> GetAllProductsPagination(CancellationToken cancellationToken, int pageNumber = 1, int pageSize = 10)
+        {
+            return Ok(await Mediator.Send(new GetAllProductsPaginationQuery
+            {
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            }, cancellationToken)); ;
         }
 
         [HttpGet("list")]
