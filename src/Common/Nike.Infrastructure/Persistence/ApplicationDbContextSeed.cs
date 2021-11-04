@@ -26,18 +26,10 @@ namespace Nike.Infrastructure.Persistence
 
             var adminUser = new ApplicationUser { UserName = "admin", Email = "admin@nike.com" };
 
-            if (userManager.Users.All(u => u.UserName != adminUser.UserName))
+            if (!userManager.Users.Any())
             {
                 await userManager.CreateAsync(adminUser, "DeusTienDat_3k@");
                 await userManager.AddToRolesAsync(adminUser, new[] { administratorRole.Name });
-            }
-
-            var assistantUser = new ApplicationUser { UserName = "assistant", Email = "assistant@nike.com" };
-
-            if (userManager.Users.All(u => u.UserName != assistantUser.UserName))
-            {
-                await userManager.CreateAsync(assistantUser, "NonducorDuco_33#");
-                await userManager.AddToRolesAsync(assistantUser, new[] { assistantRole.Name });
             }
         }
 
