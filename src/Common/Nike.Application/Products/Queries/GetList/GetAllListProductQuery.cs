@@ -11,6 +11,7 @@ namespace Nike.Application.Products.Queries.GetList
 {
     public class GetAllListProductQuery : IRequestWrapper<List<ListProductDto>>
     {
+        public string keyword { get; set; }
     }
 
     public class GetAllListProductQueryHandler : IRequestHandlerWrapper<GetAllListProductQuery, List<ListProductDto>>
@@ -35,6 +36,11 @@ namespace Nike.Application.Products.Queries.GetList
                                    Price = a.Price,
                                    ProductCategoryName = b.Name
                                }).ToListAsync(cancellationToken);
+
+            if (!string.IsNullOrEmpty(request.keyword))
+            {
+                query = query.Where(q => q.Name.ToLower().Contains(request.keyword.ToLower())).ToList();
+            }
 
             return query.Count > 0 ? ServiceResult.Success(query) : ServiceResult.Failed<List<ListProductDto>>(ServiceError.NotFound);
         }

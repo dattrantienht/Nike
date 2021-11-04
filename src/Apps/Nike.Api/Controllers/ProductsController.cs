@@ -24,9 +24,9 @@ namespace Nike.Api.Controllers
         }
 
         [HttpGet("list")]
-        public async Task<ActionResult<ServiceResult<List<ProductDto>>>> GetAllListProducts(CancellationToken cancellationToken)
+        public async Task<ActionResult<ServiceResult<List<ProductDto>>>> GetAllListProducts(CancellationToken cancellationToken, string keyword = null)
         {
-            return Ok(await Mediator.Send(new GetAllListProductQuery(), cancellationToken));
+            return Ok(await Mediator.Send(new GetAllListProductQuery { keyword = keyword}, cancellationToken));
         }
 
         [HttpGet("{id}")]
