@@ -32,41 +32,23 @@ namespace Nike.Application.Products.Queries.GetAllPagination
         }
         public async Task<ServiceResult<PaginatedList<ListProductDto>>> Handle(GetAllProductsPaginationQuery request, CancellationToken cancellationToken)
         {
-
+            var query = from a in _context.Products
+                               join b in _context.ProductCategories
+                               on a.ProductCategoryId equals b.Id
+                               select new ListProductDto()
+                               {
+                                   Id = a.Id,
+                                   Name = a.Name,
+                                   Image = a.Image,
+                                   Price = a.Price,
+                                   ProductCategoryName = b.Name
+                               };
             if (!string.IsNullOrEmpty(request.keyword))
             {
-                var query = await (from a in _context.Products
-                                   join b in _context.ProductCategories
-                                   on a.ProductCategoryId equals b.Id
-                                   where a.Name.ToLower().Contains(request.keyword.ToLower())
-                                   select new ListProductDto()
-                                   {
-                                       Id = a.Id,
-                                       Name = a.Name,
-                                       Image = a.Image,
-                                       Price = a.Price,
-                                       ProductCategoryName = b.Name
-                                   }).PaginatedListAsync(request.PageNumber, request.PageSize, cancellationToken);
-                return ServiceResult.Success(query);
+                query = query.Where(a => a.Name.ToLower().Contains(request.keyword.ToLower()));
             }
-            else
-            {
-                var query = await (from a in _context.Products
-                                   join b in _context.ProductCategories
-                                   on a.ProductCategoryId equals b.Id
-                                   select new ListProductDto()
-                                   {
-                                       Id = a.Id,
-                                       Name = a.Name,
-                                       Image = a.Image,
-                                       Price = a.Price,
-                                       ProductCategoryName = b.Name
-                                   }).PaginatedListAsync(request.PageNumber, request.PageSize, cancellationToken);
-                return ServiceResult.Success(query);
-            }
-                
-
-            return  ServiceResult.Failed<PaginatedList<ListProductDto>>(ServiceError.NotFound);
+            var result = await query.PaginatedListAsync(request.PageNumber, request.PageSize, cancellationToken);
+            return result.Items.Any() ? ServiceResult.Success(result) : ServiceResult.Failed<PaginatedList<ListProductDto>>(ServiceError.NotFound);
         }
     }
 }
