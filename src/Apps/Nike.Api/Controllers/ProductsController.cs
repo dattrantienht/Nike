@@ -25,12 +25,13 @@ namespace Nike.Api.Controllers
         }
 
         [HttpGet("page")]
-        public async Task<ActionResult<ServiceResult<List<ProductDto>>>> GetAllProductsPagination(CancellationToken cancellationToken, int pageNumber = 1, int pageSize = 10)
+        public async Task<ActionResult<ServiceResult<List<ProductDto>>>> GetAllProductsPagination(CancellationToken cancellationToken, int pageNumber = 1, int pageSize = 10, string keyword = null)
         {
             return Ok(await Mediator.Send(new GetAllProductsPaginationQuery
             {
                 PageNumber = pageNumber,
-                PageSize = pageSize
+                PageSize = pageSize,
+                keyword = keyword
             }, cancellationToken)); ;
         }
 

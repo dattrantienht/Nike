@@ -17,6 +17,7 @@ namespace Nike.Application.Products.Queries.GetAllPagination
     {
         public int PageNumber { get; set; } = 1;
         public int PageSize { get; set; } = 10;
+        public string keyword { get; set; }
     }
 
     public class GetAllProductsPaginationQueryHandler : IRequestHandlerWrapper<GetAllProductsPaginationQuery, PaginatedList<ListProductDto>>
@@ -31,19 +32,41 @@ namespace Nike.Application.Products.Queries.GetAllPagination
         }
         public async Task<ServiceResult<PaginatedList<ListProductDto>>> Handle(GetAllProductsPaginationQuery request, CancellationToken cancellationToken)
         {
-            var query = await(from a in _context.Products
-                              join b in _context.ProductCategories
-                              on a.ProductCategoryId equals b.Id
-                              select new ListProductDto()
-                              {
-                                  Id = a.Id,
-                                  Name = a.Name,
-                                  Image = a.Image,
-                                  Price = a.Price,
-                                  ProductCategoryName = b.Name
-                              }).PaginatedListAsync(request.PageNumber, request.PageSize, cancellationToken);
-            
-            return query.Items.Any() ? ServiceResult.Success(query) : ServiceResult.Failed<PaginatedList<ListProductDto>>(ServiceError.NotFound);
+
+            if (!string.IsNullOrEmpty(request.keyword))
+            {
+                var query = await (from a in _context.Products
+                                   join b in _context.ProductCategories
+                                   on a.ProductCategoryId equals b.Id
+                                   where a.Name.ToLower().Contains(request.keyword.ToLower())
+                                   select new ListProductDto()
+                                   {
+                                       Id = a.Id,
+                                       Name = a.Name,
+                                       Image = a.Image,
+                                       Price = a.Price,
+                                       ProductCategoryName = b.Name
+                                   }).PaginatedListAsync(request.PageNumber, request.PageSize, cancellationToken);
+                return ServiceResult.Success(query);
+            }
+            else
+            {
+                var query = await (from a in _context.Products
+                                   join b in _context.ProductCategories
+                                   on a.ProductCategoryId equals b.Id
+                                   select new ListProductDto()
+                                   {
+                                       Id = a.Id,
+                                       Name = a.Name,
+                                       Image = a.Image,
+                                       Price = a.Price,
+                                       ProductCategoryName = b.Name
+                                   }).PaginatedListAsync(request.PageNumber, request.PageSize, cancellationToken);
+                return ServiceResult.Success(query);
+            }
+                
+
+            return  ServiceResult.Failed<PaginatedList<ListProductDto>>(ServiceError.NotFound);
         }
     }
 }
