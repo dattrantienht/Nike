@@ -1,18 +1,17 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Nike.Application.Common.Models;
 using Nike.Application.Dto;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using Nike.Application.Products.Commands.Create;
-using Nike.Application.Products.Queries.GetAll;
-using Nike.Application.Products.Queries.GetById;
-using Nike.Application.Products.Commands.Update;
 using Nike.Application.Products.Commands.Delete;
-using Nike.Application.ProductCategories.Commands.Update;
-using Nike.Application.Products.Queries.GetList;
+using Nike.Application.Products.Commands.Update;
+using Nike.Application.Products.Queries.GetAll;
 using Nike.Application.Products.Queries.GetAllPagination;
+using Nike.Application.Products.Queries.GetById;
+using Nike.Application.Products.Queries.GetList;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Nike.Api.Controllers
 {
@@ -38,7 +37,7 @@ namespace Nike.Api.Controllers
         [HttpGet("list")]
         public async Task<ActionResult<ServiceResult<List<ProductDto>>>> GetAllListProducts(CancellationToken cancellationToken, string keyword = null)
         {
-            return Ok(await Mediator.Send(new GetAllListProductQuery { keyword = keyword}, cancellationToken));
+            return Ok(await Mediator.Send(new GetAllListProductQuery { keyword = keyword }, cancellationToken));
         }
 
         [HttpGet("{id}")]

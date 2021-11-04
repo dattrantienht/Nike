@@ -1,19 +1,17 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using Mapster;
+using MapsterMapper;
+using Microsoft.EntityFrameworkCore;
 using Nike.Application.Common.Interfaces;
 using Nike.Application.Common.Models;
 using Nike.Application.Dto;
-using Mapster;
-using MapsterMapper;
-using Microsoft.EntityFrameworkCore;
-using MediatR;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Nike.Application.Products.Queries.GetAll
 {
     public class GetAllProductsQuery : IRequestWrapper<List<ProductDto>>
     {
-
     }
 
     public class GetAllProductsQueryHandler : IRequestHandlerWrapper<GetAllProductsQuery, List<ProductDto>>
@@ -35,6 +33,5 @@ namespace Nike.Application.Products.Queries.GetAll
 
             return list.Count > 0 ? ServiceResult.Success(list) : ServiceResult.Failed<List<ProductDto>>(ServiceError.NotFound);
         }
-
     }
 }

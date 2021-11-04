@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using Nike.Domain.Entities;
-using Mapster;
-using System;
+﻿using System;
 
 namespace Nike.Application.Dto
 {
@@ -19,6 +16,5 @@ namespace Nike.Application.Dto
         public DateTime CreateDate { get; set; }
 
         public int ProductCategoryId { get; set; }
-
     }
 }

@@ -112,7 +112,6 @@ namespace Nike.Api
 
             app.UseStaticFiles();
 
-            //app.UseSwaggerAuthorized();
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Nike API"));
 

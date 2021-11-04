@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Nike.Application.Dto
+﻿namespace Nike.Application.Dto
 {
     public class TeamMemberDto
     {
