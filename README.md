@@ -1,5 +1,5 @@
 # :thong_sandal: Nike - Backend :athletic_shoe:
-Đây là Solution Backend cho bài tập ASP.NET, xây dựng trên nền template [Clean Architecture](https://github.com/iayti/CleanArchitecture) tạo ra bởi [İlker Aytı](https://github.com/iayti), áp dụng hình mẫu thiết kế [CQRS](https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs) và tuân theo những nguyên tắc của Kiến Trúc Sạch (Clean Architecture) :ok_hand: .
+Đây là Solution Backend cho bài tập ASP.NET, xây dựng trên nền template [Clean Architecture](https://github.com/iayti/CleanArchitecture) tạo ra bởi [İlker Aytı](https://github.com/iayti), áp dụng hình mẫu thiết kế [CQS](https://en.wikipedia.org/wiki/Command%E2%80%93query_separation) và tuân theo những nguyên tắc của Kiến Trúc Sạch (Clean Architecture) :ok_hand: .
 
 ## :tv: Công nghệ sử dụng :iphone:
 * ASP.NET Core 5
