@@ -31,7 +31,7 @@ namespace Nike.Api.Controllers
                 PageNumber = pageNumber,
                 PageSize = pageSize,
                 keyword = keyword
-            }, cancellationToken)); ;
+            }, cancellationToken));
         }
 
         [HttpGet("list")]
