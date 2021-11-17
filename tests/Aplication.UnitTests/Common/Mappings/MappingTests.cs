@@ -27,23 +27,5 @@ namespace Nike.Application.UnitTests.Common.Mappings
             _mapper = scope.ServiceProvider.GetService<IMapper>();
         }
 
-
-        [Test]
-        [TestCase(typeof(City), typeof(CityDto))]
-        [TestCase(typeof(District), typeof(DistrictDto))]
-        public void ShouldSupportMappingFromSourceToDestination(Type source, Type destination)
-        {
-            var instance = Activator.CreateInstance(source);
-
-            _mapper.Map(instance, source, destination);
-        }
-
-        [Test]
-        public void ShouldMappingCorrectly()
-        {
-            var city = new City { Id = 1, Name = "Bursa" };
-            var cityDto = _mapper.Map<City, CityDto>(city);
-            cityDto.Name.Should().Be("Bursa");
-        }
     }
 }
