@@ -30,6 +30,18 @@ namespace Nike.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder
+                        .AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                    });
+            });
+
             services.AddApplication();
             services.AddInfrastructure(Configuration);
 
@@ -105,7 +117,7 @@ namespace Nike.Api
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+            
             app.UseHealthChecks("/health");
 
             app.UseHttpsRedirection();
@@ -116,6 +128,7 @@ namespace Nike.Api
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Nike API"));
 
             app.UseRouting();
+            app.UseCors();
             app.UseAuthentication();
             app.UseIdentityServer();
             app.UseAuthorization();
